@@ -524,6 +524,7 @@ static int mmc_blk_ioctl_cmd(struct block_device *bdev,
 	cmd.opcode = idata->ic.opcode;
 	cmd.arg = idata->ic.arg;
 	cmd.flags = idata->ic.flags;
+	struct scatterlist sg;
 
 	if (idata->buf_bytes) {
 		data.sg = &sg;
