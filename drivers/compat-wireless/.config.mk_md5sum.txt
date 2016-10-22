@@ -1,0 +1,1 @@
+c5ae6bdaf6f9c8c5838998f5ac5ebbc8  /home/h84001998/p2/androidcode/kernel/drivers/compat-wireless/config.mk

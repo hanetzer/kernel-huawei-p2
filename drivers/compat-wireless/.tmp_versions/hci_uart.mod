@@ -1,0 +1,2 @@
+/home/h84001998/p2/androidcode/kernel/drivers/compat-wireless/drivers/bluetooth/hci_uart.ko
+/home/h84001998/p2/androidcode/kernel/drivers/compat-wireless/drivers/bluetooth/hci_ldisc.o /home/h84001998/p2/androidcode/kernel/drivers/compat-wireless/drivers/bluetooth/hci_h4.o /home/h84001998/p2/androidcode/kernel/drivers/compat-wireless/drivers/bluetooth/hci_bcsp.o /home/h84001998/p2/androidcode/kernel/drivers/compat-wireless/drivers/bluetooth/hci_ll.o /home/h84001998/p2/androidcode/kernel/drivers/compat-wireless/drivers/bluetooth/hci_ath.o
