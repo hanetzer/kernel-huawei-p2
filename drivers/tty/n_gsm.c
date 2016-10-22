@@ -866,7 +866,7 @@ static int gsm_dlci_data_output_framed(struct gsm_mux *gsm,
 
 	/* dlci->skb is locked by tx_lock */
 	if (dlci->skb == NULL) {
-		dlci->skb = skb_dequeue(&dlci->skb_list);
+		dlci->skb = skb_dequeue_tail(&dlci->skb_list);
 		if (dlci->skb == NULL)
 			return 0;
 		first = 1;
@@ -890,8 +890,11 @@ static int gsm_dlci_data_output_framed(struct gsm_mux *gsm,
 
 	/* FIXME: need a timer or something to kick this so it can't
 	   get stuck with no work outstanding and no buffer free */
-	if (msg == NULL)
+	if (msg == NULL) {
+		skb_queue_tail(&dlci->skb_list, dlci->skb);
+		dlci->skb = NULL;
 		return -ENOMEM;
+	}
 	dp = msg->data;
 
 	if (dlci->adaption == 4) { /* Interruptible framed (Packetised Data) */
@@ -1164,6 +1167,7 @@ static void gsm_control_message(struct gsm_mux *gsm, unsigned int command,
                                 u8 *data, int clen)
 {
 	u8 buf[1];
+	unsigned long flags;
 	switch (command & (~(EA|CR))) {
 		case CTRL_UIH_CLD: {
 			struct gsm_dlci *dlci = gsm->dlci[0];
@@ -1189,7 +1193,9 @@ static void gsm_control_message(struct gsm_mux *gsm, unsigned int command,
 			gsm->constipated = 0;
 			gsm_control_reply(gsm, CTRL_UIH_FCOFF, NULL, 0);
 			/* Kick the link in case it is idling */
+			spin_lock_irqsave(&gsm->tx_lock, flags);
 			gsm_data_kick(gsm);
+			spin_unlock_irqrestore(&gsm->tx_lock, flags);
 			break;
 		case CTRL_UIH_MSC:
 			/* Out of band modem line change indicator for a DLCI */
