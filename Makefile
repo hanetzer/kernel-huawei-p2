@@ -2,7 +2,7 @@
 -include U9700L_platform.mk
 VERSION = 3
 PATCHLEVEL = 0
-SUBLEVEL = 35
+SUBLEVEL = 36
 EXTRAVERSION =
 NAME = Sneaky Weasel
 
