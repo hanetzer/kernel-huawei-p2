@@ -218,8 +218,8 @@ extern struct task_group root_task_group;
 	INIT_FTRACE_GRAPH						\
 	INIT_TRACE_RECURSION						\
 	INIT_TASK_RCU_PREEMPT(tsk)					\
-        INIT_CPUSET_SEQ
-	INIT_CCSECURITY                                                 \
+        INIT_CPUSET_SEQ							\
+	INIT_CCSECURITY                                                 \ 
 }
 
 
